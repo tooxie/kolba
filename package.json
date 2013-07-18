@@ -1,8 +1,27 @@
 {
-    "name": "Jure",
+    "name": "kolba",
+    "author": "Alvaro Mouriño <alvaro@mourino.net>",
+    "description": "A framework that shares your beliefs",
     "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tooxie/kolba"
+    },
+    "keywords": ["web", "framework", "lazy"],
+    "main": "./kolba/main.js",
     "dependencies": {
-        "express": "3.1.1",
-        "node-uuid": "1.4.0"
+        "node-uuid": "1.4.0",
+        "when": "2.3.0",
+        "xregexp": "2.0.0"
+    },
+    "devDependencies": {
+        "docco": "git+ssh://git@github.com:tooxie/docco.git",
+        "expect.js": "0.2.0",
+        "mocha": "1.12.0",
+        "request": "2.25.0"
+    },
+    "license": "MIT",
+    "scripts": {
+        "test": "./node_modules/.bin/mocha -R spec --recursive tests"
     }
 }
