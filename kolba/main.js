@@ -121,10 +121,10 @@ function Kolba(config) {
 
     var logStats = function(locals) {
         var req = locals.getRequest();
-        var accepts = locals.getAcceptedTypes().join(', ');
+        var cType = locals.getResponse().getHeader('Content-Type').getValue();
 
         console.log('%s %s HTTP/%s %s %s', req.method, req.path,
-                    req.httpVersion, locals.getStatusCode(), accepts);
+                    req.httpVersion, locals.getStatusCode(), cType);
     };
 
     var requestHandler = function(locals) {
