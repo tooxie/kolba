@@ -1,4 +1,3 @@
-var uuid = require('node-uuid');
 var events = require('events');
 
 var Injector = require('./injector');
@@ -11,7 +10,6 @@ function RequestLocals(args) {
     this.emitter = new events.EventEmitter();
     this.flushed = false;
     this.httpResponse = args.response;
-    this.id = uuid.v1();
     this.request = new Request(args.request);
     this.response = new Response();
     this.timestamp = new Date().getTime();
@@ -26,10 +24,6 @@ function RequestLocals(args) {
 }
 
 // Public methods
-RequestLocals.prototype.getId = function() {
-    return this.id;
-};
-
 RequestLocals.prototype.getEventEmitter = function() {
     return this.emitter;
 };
@@ -109,27 +103,15 @@ RequestLocals.prototype.getAcceptedTypes = function() {
 };
 
 RequestLocals.prototype.destroy = function() {
-    var id = this.getId();
-
-    console.log('Clearing locals for id %s', id);
-
-    if (!id) {
-        return false;
-    }
-
     this.config = null;
     this.defaultContentType = null;
     this.emitter = null;
     this.flushed = false;
     this.httpResponse = null;
-    this.id = null;
     this.injector = null;
     this.request = null;
     this.response = null;
     this.timestamp = null;
-
-    this.locals[id] = null;
-    delete(this.locals[id]);
 };
 
 module.exports = RequestLocals;

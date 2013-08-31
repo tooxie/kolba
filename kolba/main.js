@@ -123,9 +123,8 @@ function Kolba(config) {
         var req = locals.getRequest();
         var accepts = locals.getAcceptedTypes().join(', ');
 
-        console.log('%s %s HTTP/%s %s %s %s', req.method, req.path,
-                    req.httpVersion, locals.getStatusCode(), accepts,
-                    locals.getId());
+        console.log('%s %s HTTP/%s %s %s', req.method, req.path,
+                    req.httpVersion, locals.getStatusCode(), accepts);
     };
 
     var requestHandler = function(locals) {

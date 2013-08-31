@@ -5,7 +5,6 @@ function Response(stateObject) {
     // optimizations I made them public. Is there a workaround for this?
     this.headers = {};
     this.statusCode = 200;
-    this.id = '';
     this.body = '';
 
     if (typeof(stateObject) !== 'undefined') {
@@ -16,14 +15,6 @@ function Response(stateObject) {
         this.setHeader('X-Powered-By', 'Kolba');
     }
 }
-
-Response.prototype.setId = function(newId) {
-    this.id = newId;
-};
-
-Response.prototype.getId = function() {
-    return this.id;
-};
 
 Response.prototype.setHeader = function() {
     var header;

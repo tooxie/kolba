@@ -10,7 +10,6 @@
     "keywords": ["web", "framework", "lazy"],
     "main": "./kolba/main.js",
     "dependencies": {
-        "node-uuid": "1.4.0",
         "when": "2.3.0",
         "xregexp": "2.0.0"
     },
