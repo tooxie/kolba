@@ -8,7 +8,7 @@
         "url": "https://github.com/tooxie/kolba"
     },
     "keywords": ["web", "framework", "lazy"],
-    "main": "./kolba/main.js",
+    "main": "./kolba/index.js",
     "dependencies": {
         "when": "2.3.0",
         "xregexp": "2.0.0"
