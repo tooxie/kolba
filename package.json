@@ -14,7 +14,6 @@
         "xregexp": "2.0.0"
     },
     "devDependencies": {
-        "docco": "git+ssh://git@github.com:tooxie/docco.git",
         "expect.js": "0.2.0",
         "mocha": "1.12.0",
         "request": "2.25.0"
