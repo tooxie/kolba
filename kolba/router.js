@@ -24,8 +24,6 @@ function Router() {
         var mountPoint;
         var resource;
 
-        console.log('Dispatching...');
-
         locals.updateResponse(404);
         // Iterate over the resources
         for (mountPoint in resources) {

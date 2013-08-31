@@ -33,7 +33,6 @@ RequestLocals.prototype.on = function(eventName, callback) {
 };
 
 RequestLocals.prototype.emit = function(eventName) {
-    console.log('Emitting ' + eventName + '...');
     this.emitter.emit(eventName, this);
 };
 
@@ -47,7 +46,6 @@ RequestLocals.prototype.flush = function() {
 
     // Make this call idempotent
     if (this.wasFlushed()) {
-        console.log('Ignoring flush call');
         return true;
     }
 
