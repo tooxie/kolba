@@ -2,7 +2,7 @@
     "name": "kolba",
     "author": "Alvaro Mouriño <alvaro@mourino.net>",
     "description": "A framework that shares your beliefs",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/tooxie/kolba"
