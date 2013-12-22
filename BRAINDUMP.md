@@ -207,4 +207,37 @@ JavaScript
 In the process of minifying JavaScript files we could also check for leaking
 and conflicting globals. Would that be possible?
 
+We could support different libraries:
+```javascript
+app.libs.add([
+    {
+        "name": "jQuery",
+        "version": "latest"
+    },
+    {
+        "name": "bootstrap",
+        "version": "development"
+    }
+])
+```
+
+Which outputs:
+```html
+<link rel="stylesheet" type="text/css" href="//somecdn.com/bootstrap-dev.css">
+<script type="text/javascript" src="//somecdn.com/jquery-latest.js"></script>
+```
+
+Possible versions:
+* A number: A specific version.
+    * `0.0.1`
+    * `0.1`
+* A range: One of a list of accepted versions.
+    * `0.1.x`
+    * `0.1+`
+    * `0.1.9~0.1.15`
+* `latest`: The latest stable or development version.
+    * `latest-dev`: Development version.
+    * `latest-stable`: The latest stable version. Synonym for `latest`.
+    * `development`: Synonym for `latest-dev`.
+
 <!-- vim: set filetype=markdown : -->
