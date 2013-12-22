@@ -1,5 +1,5 @@
-Braindump
-=========
+Kolba.Braindump
+===============
 
 Here I will write many ideas I have for a future version of Kolba. They will be
 focused on the easing the developer's workflow. No code sharing between server
@@ -80,7 +80,7 @@ versions when possible.
 ```html
 <head>
     <!-- /static comes from app.config.MINIFIED_URL -->
-    <link href="/static/styles.min-hashoftheminifiedfile.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles.min-hashoftheminifiedfile.css">
 </head>
 ```
 
@@ -95,10 +95,10 @@ Listening on http://127.0.0.1:7331/
 In the HTML:
 ```html
 <head>
-    <link href="generic_styles.css">
-    <link href="derp.css">
-    <link href="herp.less">
-    <script src="less.js"></script>
+    <link rel="stylesheet" type="text/css" href="generic_styles.css">
+    <link rel="stylesheet" type="text/css" href="derp.css">
+    <link rel="stylesheet/less" type="text/css" href="herp.less">
+    <script type="text/javascript" src="less.js"></script>
 </head>
 ```
 
@@ -116,8 +116,8 @@ app.resource('/derpina/', function(response) {
 This wouldn't get minified together with the global styles:
 ```html
 <head>
-    <link href="styles.min.css?hashoftheminifiedfile">
-    <link href="derpina.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.min.css?hashoftheminifiedfile">
+    <link rel="stylesheet" type="text/css" href="derpina.min.css">
 </head>
 ```
 
@@ -180,8 +180,8 @@ In the CSS:
 The template will look like:
 ```html
 <head>
-    <link rel="stylesheet" href="/static/css/styles.css">
-    <link rel="stylesheet" href="/fonts">
+    <link rel="stylesheet" type="text/css" rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" type="text/css" rel="stylesheet" href="/fonts">
 </head>
 
 <body>
