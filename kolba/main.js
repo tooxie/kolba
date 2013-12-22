@@ -10,6 +10,7 @@ var RequestLocals = require('./locals');
 var Resource = require('./resource');
 var Router = require('./router');
 var Server = require('./server');
+// var Template = require('./template');
 
 function Kolba(config) {
     // Instance variables
@@ -37,12 +38,22 @@ function Kolba(config) {
         router.addRoute(new Resource(mountPoint, callback, methods, type));
     };
 
+    this.staticResource = function(mountPoint, path) {
+        this.resource(mountPoint, function(request) {
+            // TODO: Retrieve static files from FS.
+        });
+    };
+
     this.on = function(code, callback) {
         interceptors[code] = callback;
     };
 
     this.postMortem = function(callback) {
         postMortem.append(callback);
+    };
+
+    this.renderTemplate = function(path) {
+        // TODO: Think how to do this.
     };
 
     this.run = function(port) {
