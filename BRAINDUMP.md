@@ -199,3 +199,10 @@ The template will look like:
 ```
 
 And when we run `kolba deploy` it gets replaced by `-177px 344px`.
+
+
+JavaScript
+----------
+
+In the process of minifying JavaScript files we could also check for leaking
+and conflicting globals. Would that be possible?
