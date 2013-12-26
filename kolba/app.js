@@ -45,6 +45,10 @@ function Kolba(config) {
         router.addRoute(new Resource(mountPoint, callback, methods, type));
     };
 
+    this.mount = function(mountPoint, app) {
+        // TODO: DERP
+    };
+
     this.static = function(mountPoint, path) {
         router.addRoute(new StaticResource(mountPoint, path));
     };
