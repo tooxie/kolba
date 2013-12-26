@@ -17,6 +17,19 @@ function Router() {
         }
     };
 
+    // TODO
+    this.mount = function(externalResource) {
+        this.addRoute(mountPoint, component);
+
+        var mPoint = externalResource.getMountPoint();
+
+        if (typeof(resources[mPoint]) === 'undefined') {
+            resources[mPoint] = resource;
+        } else {
+            resources[mPoint].update(resource);
+        }
+    };
+
     this.dispatch = function(locals) {
         var accept = locals.getAcceptedTypes();
         var request = locals.getRequest();

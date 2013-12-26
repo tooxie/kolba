@@ -72,7 +72,6 @@ function MiddlewareRunner() {
         function onSuccess(value) {
             locals.updateResponse(value);
             locals.emit('Middleware:abort');
-            // locals.emit('Middleware:postRequest')
         }
 
         // When no middleware returns, the promise will be rejected and it will

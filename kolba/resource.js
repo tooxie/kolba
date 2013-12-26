@@ -28,8 +28,6 @@ function Resource(mountPoint, callback, methods, type) {
     };
 
     this.doUpdate = function(callback, methods, type) {
-        var len;
-
         type = type || 'text/html';
         methods = methods || ['GET'];
         if (methods.indexOf('HEAD') === -1) {
@@ -38,8 +36,6 @@ function Resource(mountPoint, callback, methods, type) {
         if (methods.indexOf('OPTIONS') === -1) {
             methods.push('OPTIONS');
         }
-
-        len = methods.length;
 
         if (typeof(contentTypes[type]) === 'undefined') {
             contentTypes[type] = {};
@@ -219,4 +215,17 @@ function Resource(mountPoint, callback, methods, type) {
     this.update(callback, methods, type);
 }
 
-module.exports = Resource;
+function ExternalResource(mountPoint, component) {
+    this.getMountPoint = function() {
+        return mountPoint;
+    };
+
+    this.getApp = function() {
+        return component;
+    };
+}
+
+module.exports = {
+    "ExternalResource": ExternalResource,
+    "Resource": Resource
+};

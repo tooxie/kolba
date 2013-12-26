@@ -209,6 +209,12 @@ function isPromise(object) {
     return object && typeof object.then === 'function';
 }
 
+function joinURL() {
+    var url = arguments.join('/');
+
+    return url.replace(/\/+/g, '/');
+}
+
 module.exports = {
     acceptHeaderParser: acceptHeaderParser,
     isPromise: isPromise,
