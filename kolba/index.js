@@ -19,7 +19,7 @@ function getCurrentRequest() {
 // var app = new Kolba.App();
 // ```
 module.exports = {
-    'App': require('./main'),
+    'App': require('./app'),
     'getCurrentRequest': getCurrentRequest,
     'getLocals': getLocals,
     'Header': require('./header'),
