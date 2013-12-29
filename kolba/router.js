@@ -4,16 +4,78 @@
  * also in the client, then we can reuse the router.
  */
 function Router() {
-    var resources = {};
+    /*
+       Root()
+       Resource('/', function() {}, children=[
+          Resource('
+       ])
+
+       /
+       /herp/derp/<id>/
+       /about/
+       ResourceNode({
+           "mountPoint": "/",
+           "resource": function() {},
+           "children": [
+               ResourceNode({
+                   "mountPoint": "herp",
+                   "children": [
+                       ResourceNode({
+                           "mountPoint": "derp",
+                           "children": [
+                               Node({
+                                   "mountPoint": "<id>",
+                                   "resource": function() {}
+                               })
+                           ]
+                       })
+                   ]
+               }),
+               ResourceNode({
+                   "mountPoint": "about",
+                   "resource": function() {}
+               })
+           ]
+       })
+
+        /
+        /herp/derp/
+        {
+            "/": {
+                "resource": Resource(),
+                "children": {
+                    "herp": {
+                        "children": {
+                            "derp": {
+                                "resource": Resource()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    /
+    /derp/
+    /herp/derp/
+    {
+        "__root__": Resource,
+        "derp": Resource,
+        "herp": {
+            "derp": Resource,
+        }
+    }
+    */
+    var resourceTree = {};
 
     // Public methods
     this.addRoute = function(resource) {
         var mPoint = resource.getMountPoint();
 
-        if (typeof(resources[mPoint]) === 'undefined') {
-            resources[mPoint] = resource;
+        if (typeof(resourceTree[mPoint]) === 'undefined') {
+            resourceTree[mPoint] = resource;
         } else {
-            resources[mPoint].update(resource);
+            resourceTree[mPoint].update(resource);
         }
     };
 
@@ -26,10 +88,10 @@ function Router() {
         var resource;
 
         locals.updateResponse(404);
-        // Iterate over the resources
-        for (mountPoint in resources) {
+        // Iterate over the resourceTree
+        for (mountPoint in resourceTree) {
             // Did anybody flush already?
-            resource = resources[mountPoint];
+            resource = resourceTree[mountPoint];
             // Does your URL definition matches this path?
             if (resource.matchesURL(request.path)) {
                 locals.updateResponse(405);

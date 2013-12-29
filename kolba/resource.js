@@ -2,8 +2,7 @@ var XRegExp = require('xregexp').XRegExp;
 
 var util = require('./util');
 
-function Resource(mountPoint, callback, methods, type) {
-    var re = XRegExp(mountPoint, 'x');
+function Resource(callback, methods, type) {
     var contentTypes = {};
     var urlArgs = {};
 
@@ -53,10 +52,6 @@ function Resource(mountPoint, callback, methods, type) {
         };
     };
 
-    this.getRegExp = function() {
-        return re;
-    };
-
     this.getMountPoint = function() {
         return mountPoint;
     };
@@ -89,32 +84,6 @@ function Resource(mountPoint, callback, methods, type) {
 
     this.getUrlArgs = function() {
         return urlArgs;
-    };
-
-    function cacheRegExp(matches) {
-        var key;
-
-        for (key in matches) {
-            // XRegExp uses positional references to the matches, i.e. 0, 1,
-            // 2... We ignore those and use only non-numeric keys
-            if (matches.hasOwnProperty(key) && isNaN(parseInt(key, 10))) {
-                urlArgs[key] = matches[key];
-            }
-        }
-    }
-
-    this.matchesURL = function(url) {
-        var matches = XRegExp.exec(url, re);
-
-        if (matches === null) {
-            return false;
-        } else {
-            if (mountPoint.indexOf('(?') > -1) {
-                cacheRegExp(matches);
-            }
-        }
-
-        return true;
     };
 
     this.allowsMethod = function(method) {

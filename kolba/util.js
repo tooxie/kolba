@@ -11,8 +11,10 @@ function ObjectList(size) {
     this.length = 0;
 
     this.append = function(item) {
-        if (this.size === this.length) {
-            throw new Error('ObjectList overflow');
+        if (typeof(this.size) !== 'undefined') {
+            if (this.size === this.length) {
+                throw new Error('ObjectList overflow');
+            }
         }
 
         items[this.length] = item;

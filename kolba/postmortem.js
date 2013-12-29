@@ -5,6 +5,10 @@ var callbacks = new ObjectList();
 function PostMortem() {}
 
 // Public methods
+PostMortem.prototype.getCallbacks = function() {
+    return callbacks;
+};
+
 PostMortem.prototype.append = function(callback) {
     callbacks.append(callback);
 };

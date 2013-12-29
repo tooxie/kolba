@@ -109,6 +109,13 @@ function MiddlewareRunner() {
     this.end = function(locals) {
         locals.emit('Middleware:postResponse');
     };
+
+    this.getMiddlewares = function() {
+        return {
+            "request": requestMiddlewares,
+            "response": responseMiddlewares
+        }
+    };
 }
 
 module.exports = MiddlewareRunner;

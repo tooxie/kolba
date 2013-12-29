@@ -11,6 +11,7 @@ var Resource = require('./resource');
 var Router = require('./router');
 var Server = require('./server');
 var StaticResource = require('./static');
+var URLNode = require('./url');
 
 function Kolba(config) {
     // Instance variables
@@ -24,6 +25,7 @@ function Kolba(config) {
     };
     var middlewares = new MiddlewareRunner();
     var postMortem = new PostMortem();
+    var URLTree = new URLNode('/');
     var router = new Router();
     var server;
 
@@ -38,11 +40,14 @@ function Kolba(config) {
         middlewares.addResponseMiddleware(callback);
     };
 
-    this.resource = function(mountPoint, callback, methods, type) {
+    this.resource = function(path, callback, methods, type) {
+        var node;
+
         methods = methods || config.get('methods');
         type = type || config.get('contentType');
+        node = new Resource(callback, methods, type);
 
-        router.addRoute(new Resource(mountPoint, callback, methods, type));
+        URLTree.insert(path, node);
     };
 
     this.static = function(mountPoint, path) {
