@@ -13,7 +13,14 @@ var Server = require('./server');
 
 function Kolba(config) {
     // Instance variables
-    var interceptors = {};
+    var interceptors = {
+        404: function() {
+            return '<h1>Not Found</h1>';
+        },
+        500: function() {
+            return '<h1>Internal Server Error</h1>';
+        }
+    };
     var middlewares = new MiddlewareRunner();
     var postMortem = new PostMortem();
     var router = new Router();
@@ -59,9 +66,8 @@ function Kolba(config) {
             domain.onError(function(error) {
                 var locals = getLocals();
                 var injector = locals.getInjector();
-                var returned = injector.inject(this.interceptors[500])();
-
-                console.log(error);
+                var interceptor = this.interceptors[500];
+                var returned = injector.inject(interceptor)();
 
                 locals.updateResponse(returned);
                 locals.updateResponse(500);
