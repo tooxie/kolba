@@ -47,7 +47,10 @@ function Kolba(config) {
 
     this.run = function(port) {
         var deferred = Promise.defer();
-        var server = new Server(port || config.get('port'));
+        var server;
+
+        port = port || config.get('port') || 3000;
+        server = new Server(port);
 
         var requestListener = function(request, response) {
             var domain = new Domain();
