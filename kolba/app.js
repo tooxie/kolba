@@ -127,7 +127,7 @@ function Kolba(config) {
         var cType = locals.getResponse().getHeader('Content-Type').getValue();
 
         console.log('%s %s HTTP/%s %s %s', req.method, req.path,
-                    req.httpVersion, locals.getStatusCode(), cType);
+                    req.httpVersion || '1.1', locals.getStatusCode(), cType);
     };
 
     var requestHandler = function(locals) {
