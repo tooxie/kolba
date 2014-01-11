@@ -8,7 +8,12 @@ function Domain() {
     };
 
     this.run = function(callback) {
+        // domain.run(domain.bind(callback));
         domain.run(callback);
+    };
+
+    this.add = function(obj) {
+        domain.add(obj);
     };
 }
 

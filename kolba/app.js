@@ -62,22 +62,32 @@ function Kolba(config) {
         var requestListener = function(request, response) {
             var domain = new Domain();
 
-            // FIXME: This ain't working
-            domain.onError(function(error) {
-                var locals = getLocals();
-                var injector = locals.getInjector();
-                var interceptor = this.interceptors[500];
-                var returned = injector.inject(interceptor)();
-
-                locals.updateResponse(returned);
-                locals.updateResponse(500);
-                locals.flush();
-            });
+            domain.add(request);
+            domain.add(response);
 
             domain.run(function() {
                 var locals = getNewLocals({
                     'request': request,
                     'response': response
+                });
+
+                locals.on('error', function(error) {
+                    var injector = locals.getInjector();
+                    var response;
+
+                    try {
+                        response = injector.inject(interceptors[500])();
+                    } catch(err) {
+                        /*
+                         * If the user's interceptor for the 500 error raises
+                         * an exception, this will catch it and prevent it from
+                         * interrupting the execution.
+                         */
+                        die(locals, err, '<h1>Internal Server Error</h1>');
+                        return;
+                    }
+
+                    die(locals, error, response);
                 });
 
                 process.domain.locals = locals;
@@ -150,6 +160,19 @@ function Kolba(config) {
         // Publish our events
         // Middlewares get executed here
         locals.emit('Main:preRequest');
+    };
+
+    var die = function(locals, error, response) {
+        locals.updateResponse(response);
+        locals.updateResponse(500);
+        locals.flush();
+
+        console.error(error.stack);
+        /*
+         * We won't kill the process. The client receives a 500 error page, the
+         * server logs the error and waits for the next connection.
+         */
+        // process.exit(1);
     };
 
     var end = function(locals) {

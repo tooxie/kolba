@@ -29,7 +29,13 @@ RequestLocals.prototype.getEventEmitter = function() {
 };
 
 RequestLocals.prototype.on = function(eventName, callback) {
-    this.emitter.on(eventName, callback);
+    this.emitter.on(eventName, function(locals) {
+        try {
+            callback(locals);
+        } catch(error) {
+            this.emit('error', error);
+        }
+    });
 };
 
 RequestLocals.prototype.emit = function(eventName) {
