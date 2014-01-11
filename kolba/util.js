@@ -44,7 +44,7 @@ function ObjectList(size) {
         return items;
     };
 
-    this.each = function(callback) {
+    this.each = function(callback, ctx) {
         var i = 0;
 
         if (this.length === 0) {
@@ -52,7 +52,7 @@ function ObjectList(size) {
         }
 
         while (i < this.length) {
-            callback(items[i]);
+            callback.call(ctx || this, items[i]);
             i += 1;
         }
     };
@@ -85,6 +85,12 @@ function ObjectList(size) {
 
     this.pop = function() {
         return this.remove(this.length);
+    };
+
+    this.update = function(oList) {
+        oList.each(function(item) {
+            this.append(item);
+        }, this);
     };
 }
 
