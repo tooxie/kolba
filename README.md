@@ -143,6 +143,34 @@ will be treated as `text/plain`.
 Defaults to `text/html`.
 
 
+Static resources
+----------------
+
+To serve static files from a directory there is a special type of resource that
+receives a mount point and a directory:
+
+```javascript
+app.static('/js', 'static/js');
+```
+
+It will serve only `GET` requests, and content-types will be guess using
+[node-mime](https://github.com/broofa/node-mime).
+```
+% curl -v "http://127.0.0.1:3000/js/kolba.js"
+* About to connect() to 127.0.0.1 port 3000 (#0)
+*   Trying 127.0.0.1... connected
+> GET /js/kolba.js HTTP/1.1
+> User-Agent: curl/7.22.0 (x86_64-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
+> Host: 127.0.0.1:3000
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< X-Powered-By: Kolba
+< Content-Type: application/javascript
+
+(...)
+```
+
 Accept-header-based resources
 -----------------------------
 
