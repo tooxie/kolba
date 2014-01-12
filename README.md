@@ -171,6 +171,13 @@ It will serve only `GET` requests, and content-types will be guess using
 (...)
 ```
 
+This is available for development purposes, but it should **not** be used in
+production. Use a specific web server like apache or nginx to serve your static
+files, not your application server.
+
+This is a very naive implementation, it is not safe to use live.
+
+
 Accept-header-based resources
 -----------------------------
 
