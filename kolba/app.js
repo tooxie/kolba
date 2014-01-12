@@ -54,10 +54,8 @@ function Kolba(config) {
 
     this.run = function(port) {
         var deferred = Promise.defer();
-        var server;
-
-        port = port || config.get('port') || 3000;
-        server = new Server(port);
+        var _port = port || config.get('port') || 3000;
+        var server = new Server(_port);
 
         var requestListener = function(request, response) {
             var domain = new Domain();
@@ -96,7 +94,7 @@ function Kolba(config) {
         };
 
         server.run(requestListener).then(function() {
-            console.log(' * Running on http://127.0.0.1:' + port);
+            console.log(' * Running on http://127.0.0.1:' + _port);
             deferred.resolve(server);
         });
 
