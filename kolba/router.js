@@ -52,6 +52,7 @@ function Router() {
         // the response. If no resource was found, that event was not emitted
         // and we need to do it manually.
         if (locals.getStatusCode() !== 200) {
+            locals.emit('Resource:completed');
             locals.emit('Resource:preRequest');
             locals.emit('Resource:postRequest');
         }

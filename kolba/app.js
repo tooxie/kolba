@@ -13,7 +13,14 @@ var Server = require('./server');
 
 function Kolba(config) {
     // Instance variables
-    var interceptors = {};
+    var interceptors = {
+        404: function() {
+            return '<h1>Not Found</h1>';
+        },
+        500: function() {
+            return '<h1>Internal Server Error</h1>';
+        }
+    };
     var middlewares = new MiddlewareRunner();
     var postMortem = new PostMortem();
     var router = new Router();
@@ -47,31 +54,38 @@ function Kolba(config) {
 
     this.run = function(port) {
         var deferred = Promise.defer();
-        var server;
-
-        port = port || config.get('port') || 3000;
-        server = new Server(port);
+        var _port = port || config.get('port') || 3000;
+        var server = new Server(_port);
 
         var requestListener = function(request, response) {
             var domain = new Domain();
 
-            // FIXME: This ain't working
-            domain.onError(function(error) {
-                var locals = getLocals();
-                var injector = locals.getInjector();
-                var returned = injector.inject(this.interceptors[500])();
-
-                console.log(error);
-
-                locals.updateResponse(returned);
-                locals.updateResponse(500);
-                locals.flush();
-            });
+            domain.add(request);
+            domain.add(response);
 
             domain.run(function() {
                 var locals = getNewLocals({
                     'request': request,
                     'response': response
+                });
+
+                locals.on('error', function(error) {
+                    var injector = locals.getInjector();
+                    var response;
+
+                    try {
+                        response = injector.inject(interceptors[500])();
+                    } catch(err) {
+                        /*
+                         * If the user's interceptor for the 500 error raises
+                         * an exception, this will catch it and prevent it from
+                         * interrupting the execution.
+                         */
+                        die(locals, err, '<h1>Internal Server Error</h1>');
+                        return;
+                    }
+
+                    die(locals, error, response);
                 });
 
                 process.domain.locals = locals;
@@ -80,7 +94,7 @@ function Kolba(config) {
         };
 
         server.run(requestListener).then(function() {
-            console.log(' * Running on http://127.0.0.1:' + port);
+            console.log(' * Running on http://127.0.0.1:' + _port);
             deferred.resolve(server);
         });
 
@@ -144,6 +158,19 @@ function Kolba(config) {
         // Publish our events
         // Middlewares get executed here
         locals.emit('Main:preRequest');
+    };
+
+    var die = function(locals, error, response) {
+        locals.updateResponse(response);
+        locals.updateResponse(500);
+        locals.flush();
+
+        console.error(error.stack);
+        /*
+         * We won't kill the process. The client receives a 500 error page, the
+         * server logs the error and waits for the next connection.
+         */
+        // process.exit(1);
     };
 
     var end = function(locals) {
