@@ -58,7 +58,7 @@ xdescribe('Event', function() {
             });
         });
 
-        app.run(3001).then(function() {
+        app.listen(3001).then(function() {
             done();
         });
 

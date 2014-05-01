@@ -57,7 +57,7 @@ function Kolba(config) {
         postMortem.append(callback);
     };
 
-    this.run = function(port) {
+    this.listen = function(port) {
         var deferred = Promise.defer();
         var _port = port || config.get('port') || 3000;
         var server = new Server(_port);
@@ -98,7 +98,7 @@ function Kolba(config) {
             });
         };
 
-        server.run(requestListener).then(function() {
+        server.listen(requestListener).then(function() {
             console.log(' * Running on http://127.0.0.1:' + _port);
             deferred.resolve(server);
         });

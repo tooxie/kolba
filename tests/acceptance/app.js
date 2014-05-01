@@ -10,7 +10,7 @@ describe('Kolba app', function() {
             return 'Home';
         });
 
-        this.app.run(3001);
+        this.app.listen(3001);
 
         this.client = new Client('http://127.0.0.1:3001');
     });

@@ -52,7 +52,7 @@ describe('Status code', function() {
             return response;
         });
 
-        app.run(3001);
+        app.listen(3001);
 
         client = new Client('http://127.0.0.1:3001');
     });

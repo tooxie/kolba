@@ -14,7 +14,7 @@ describe('static resource', function() {
 
         app.static('/static', './images');
 
-        app.run(3001);
+        app.listen(3001);
 
         client = new Client('http://127.0.0.1:3001');
     });

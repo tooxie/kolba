@@ -5,7 +5,7 @@ var Promise = require('./promise');
 function Server(port) {
     var server;
 
-    this.run = function(requestHandler) {
+    this.listen = function(requestHandler) {
         var deferred = Promise.defer();
 
         process.nextTick(function() {
