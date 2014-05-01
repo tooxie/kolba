@@ -57,10 +57,11 @@ function Kolba(config) {
         postMortem.append(callback);
     };
 
-    this.listen = function(port) {
+    this.listen = function(port, host, callback) {
         var deferred = Promise.defer();
+        var _host = host || config.get('host') || '0.0.0.0';
         var _port = port || config.get('port') || 3000;
-        var server = new Server(_port);
+        var server = new Server(_port, _host, callback);
 
         var requestListener = function(request, response) {
             var domain = new Domain();

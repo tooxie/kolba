@@ -2,7 +2,7 @@ var http = require('http');
 
 var Promise = require('./promise');
 
-function Server(port) {
+function Server(port, host, callback) {
     var server;
 
     this.listen = function(requestHandler) {
@@ -10,7 +10,7 @@ function Server(port) {
 
         process.nextTick(function() {
             server = http.createServer(requestHandler);
-            server.listen(port);
+            server.listen(port, host, callback);
 
             deferred.resolve(server);
         });
