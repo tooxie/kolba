@@ -3,7 +3,8 @@ Kolba
 
 A framework that shares your beliefs
 
-[![Test coverage](https://coveralls.io/repos/tooxie/kolba/badge.png)](https://coveralls.io/r/tooxie/kolba)
+[![Build status](http://img.shields.io/travis/tooxie/kolba/master.svg?style=flat-square)](https://travis-ci.org/tooxie/kolba)
+[![Test coverage](http://img.shields.io/coveralls/tooxie/kolba/master.svg?style=flat-square)](https://coveralls.io/r/tooxie/kolba)
 
 
 Kolba is simple
