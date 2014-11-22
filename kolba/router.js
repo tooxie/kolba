@@ -20,6 +20,7 @@ function Router() {
     this.dispatch = function(locals) {
         var accept = locals.getAcceptedTypes();
         var request = locals.getRequest();
+        var dispatched = false;
         var header;
         var mountPoint;
         var resource;
@@ -40,6 +41,8 @@ function Router() {
                         locals.updateResponse(200);
                         // It's all yours
                         resource.takeOver(locals);
+                        // And we set a flag announcing it was dispatched
+                        dispatched = true;
                     }
                 } else {
                     header = resource.getMethods().join(', ');
@@ -51,7 +54,7 @@ function Router() {
         // Each resource emits a 'Resource:postRequest' event that flushes
         // the response. If no resource was found, that event was not emitted
         // and we need to do it manually.
-        if (locals.getStatusCode() !== 200) {
+        if (!dispatched) {
             locals.emit('Resource:completed');
             locals.emit('Resource:preRequest');
             locals.emit('Resource:postRequest');

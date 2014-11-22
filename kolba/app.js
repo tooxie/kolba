@@ -91,7 +91,9 @@ function Kolba(config) {
                         return;
                     }
 
-                    die(locals, error, response);
+                    Promise.resolve(response).then(function(result) {
+                        die(locals, error, result);
+                    });
                 });
 
                 process.domain.locals = locals;
@@ -136,8 +138,25 @@ function Kolba(config) {
             var response = locals.getResponse();
             var interceptor = interceptors[response.getStatusCode()];
 
-            if (typeof(interceptor) !== 'undefined') {
-                locals.updateResponse(injector.inject(interceptor)());
+            function handleInterceptor(interceptor) {
+                var deferred = Promise.defer();
+                var result = injector.inject(interceptor)();
+
+                // All returned values are treated as promises, for consistency
+                Promise.resolve(result).then(function(response) {
+                    locals.updateResponse(response);
+                    deferred.resolve();
+                });
+
+                return deferred.promise;
+            }
+
+            if (interceptor) {
+                handleInterceptor(interceptor).then(function() {
+                    locals.emit('Interceptor:completed', locals);
+                });
+            } else {
+                locals.emit('Interceptor:completed', locals);
             }
         });
     };
