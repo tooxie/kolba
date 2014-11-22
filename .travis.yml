@@ -10,3 +10,6 @@ install:
 script:
     - jshint kolba
     - NODE_PATH=`pwd` npm test
+
+after_success:
+    - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
