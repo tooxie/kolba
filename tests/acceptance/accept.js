@@ -8,7 +8,7 @@ describe('Accept header based resources', function() {
     var client;
 
     before(function() {
-        app = new Kolba.App();
+        app = new Kolba();
 
         app.resource('^/herp$', function() {
             return 'DERP';
