@@ -210,8 +210,10 @@ function Resource(mountPoint, callback, methods, type) {
     };
 
     var complete = function(locals) {
+        locals.on('Interceptor:completed', function(locals) {
+            locals.emit('Resource:postRequest', locals);
+        });
         locals.emit('Resource:completed', locals);
-        locals.emit('Resource:postRequest', locals);
     };
 
     this.update(callback, methods, type);

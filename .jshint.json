@@ -19,7 +19,9 @@
         "beforeEach",
         "describe",
         "expect",
-        "it"
+        "it",
+        "process",
+        "require"
     ],
     "quotmark": true,
     "trailing": true,
