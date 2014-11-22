@@ -8,7 +8,7 @@ describe('Kolba asynchronous resources', function() {
     var client;
 
     before(function() {
-        app = new Kolba.App();
+        app = new Kolba();
 
         app.beforeRequest(function(request) {
             if (request.path === '/prom') {

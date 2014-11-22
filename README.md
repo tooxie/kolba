@@ -9,7 +9,7 @@ Kolba is simple
 
 ```javascript
 var Kolba = require('kolba');
-var app = new Kolba.App();
+var app = new Kolba();
 
 app.resource('^/$', function() {
     return 'Hello Kolba!';
@@ -66,7 +66,7 @@ This is how you would define a resource:
 
 ```javascript
 var Kolba = require('kolba');
-var app = new Kolba.App();
+var app = new Kolba();
 
 app.resource('^/$', function() {
     return 'Hello Kolba!';
@@ -128,7 +128,7 @@ avoid setting this explicitly if you define it in Kolba's constructor:
 
 ```javascript
 var Kolba = require('kolba');
-var app = new Kolba.App({
+var app = new Kolba({
     'contentType': 'text/plain'
 });
 
@@ -193,7 +193,7 @@ An example is worth a thousand words:
 
 ```javascript
 var Kolba = require('kolba');
-var app = new Kolba.App();
+var app = new Kolba();
 
 app.resource('^/$', function() {
     return 'Hello Kolba!';
@@ -470,7 +470,7 @@ app.resource('^/$', function(response) {
 Must resolve to any of the 3 types above.
 
 ```javascript
-var Promise = require('kolba').Promise;
+var Promise = require('kolba/promise');
 
 app.resource('^/$', function() {
     var deferred = Promise.defer();
@@ -502,7 +502,7 @@ values that you didn't set explicitly won't be empty.
 Say that you want to overwrite the `X-Powered-By` header:
 
 ```javascript
-var Response = require('kolba').Response;
+var Response = require('kolba/response');
 
 app.resource('^/$', function() {
     var response = new Response();
@@ -517,7 +517,7 @@ This won't remove it, because you didn't set a different one. If Kolba took the
 response as is, you would need to redefine every single attribute manually.
 
 ```javascript
-var Response = require('kolba').Response;
+var Response = require('kolba/response');
 
 app.resource('^/$', function() {
     var response = new Response();

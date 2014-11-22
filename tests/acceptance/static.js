@@ -10,7 +10,7 @@ describe('static resource', function() {
     before(function() {
         mock({'./images/kolba.js': '{}'});
 
-        app = new Kolba.App();
+        app = new Kolba();
 
         app.static('/static', './images');
 

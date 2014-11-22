@@ -4,7 +4,7 @@ var Client = require('../client');
 
 describe('Kolba defaults', function() {
     before(function() {
-        this.app = new Kolba.App();
+        this.app = new Kolba();
 
         this.app.resource('^/$', function() {
             return 'Home';

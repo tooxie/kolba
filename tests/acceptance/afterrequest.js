@@ -9,7 +9,7 @@ describe('afterRequest', function() {
     var flag = false;
 
     before(function() {
-        app = new Kolba.App();
+        app = new Kolba();
 
         app.resource('^/$', function() {
             return 'DERP';

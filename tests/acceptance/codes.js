@@ -24,7 +24,7 @@ describe('Status code', function() {
     var client;
 
     before(function() {
-        app = new Kolba.App();
+        app = new Kolba();
 
         app.resource('^/$', function() {
             return 'Home';

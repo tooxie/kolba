@@ -25,7 +25,7 @@ xdescribe('Event', function() {
     });
 
     before(function(done) {
-        app = new Kolba.App();
+        app = new Kolba();
         app.resource('^/$', function() {});
 
         app.beforeRequest(function(locals) {

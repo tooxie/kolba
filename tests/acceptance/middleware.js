@@ -8,7 +8,7 @@ describe('Kolba middlewares', function() {
     var client;
 
     before(function() {
-        app = new Kolba.App();
+        app = new Kolba();
 
         app.beforeRequest(function(request, response) {
             console.log('*** First middleware');
