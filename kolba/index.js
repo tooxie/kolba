@@ -1,30 +1,23 @@
 // Kolba
 // =====
+var Kolba = require('./app');
 
 // This is the application's entry point. When you `require` kolba, you will
-// receive this dictionary with all the public objects.
+// receive a Kolba object with 2 helpers functions in the prototype.
 
-function getLocals() {
+Kolba.prototoype = Kolba.prototoype || {};
+Kolba.prototoype.getLocals = function getLocals() {
     return process.domain.locals;
-}
+};
 
-function getCurrentRequest() {
-    return getLocals().getRequest();
-}
+Kolba.prototoype.getCurrentRequest = function getCurrentRequest() {
+    return this.getLocals().getRequest();
+};
 
-// [App](main.html) is the object you will use to instantiate your application:
+// [Kolba](main.html) is the object you will use to instantiate your application:
 // ```javascript
 // var Kolba = require('kolba');
 //
-// var app = new Kolba.App();
+// var app = new Kolba();
 // ```
-module.exports = {
-    'App': require('./app'),
-    'getCurrentRequest': getCurrentRequest,
-    'getLocals': getLocals,
-    'Header': require('./header'),
-    'Promise': require('./promise'),
-    'Request': require('./request'),
-    'Resource': require('./resource'),
-    'Response': require('./response')
-};
+module.exports = Kolba;
