@@ -10,6 +10,7 @@
     "keywords": ["web", "framework", "lazy"],
     "main": "./kolba/index.js",
     "dependencies": {
+        "lodash": "2.4.1",
         "mime": "1.2.x",
         "when": "2.3.0",
         "xregexp": "2.0.0"

@@ -1,10 +1,8 @@
-/*
- * This could also be sent to the client. If we assume that every route that
- * defaults to ['GET'] and 'text/html' (may be configurable) can be executed
- * also in the client, then we can reuse the router.
- */
+var Node = require('./tree');
+
 function Router() {
     var resources = {};
+    var resourceTree = Node('/');
 
     // Public methods
     this.addRoute = function(resource) {
@@ -17,7 +15,26 @@ function Router() {
         }
     };
 
+    this.mount = function(mPoint, resourceTree) {
+        var node = this.resourceTree.find(mPoint);
+
+        node.attach(resourceTree);
+    };
+
+    this.getResourceTree = function() {
+        return resourceTree;
+    };
+
     this.dispatch = function(locals) {
+        var request = locals.getRequest();
+        var path = request.path.split('/');
+
+        resourceTree.find(path);
+
+        return;
+
+
+        // -- MARK --
         var accept = locals.getAcceptedTypes();
         var request = locals.getRequest();
         var dispatched = false;

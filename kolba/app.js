@@ -42,8 +42,16 @@ function Kolba(config) {
         methods = methods || config.get('methods');
         type = type || config.get('contentType');
 
-        router.addRoute(new Resource(mountPoint, callback, methods, type));
+        router.mount(mountPoint, new Resource(callback, methods, type));
     };
+
+    this.getResourceTree = function() {
+        return router.getResourceTree();
+    };
+
+    this.mount = function(mountPoint, app) {
+        router.mount(mountPoint, app.getResourceTree());
+    }
 
     this.static = function(mountPoint, path) {
         router.addRoute(new StaticResource(mountPoint, path));
