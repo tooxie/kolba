@@ -28,9 +28,10 @@ describe('afterRequest', function() {
         app.stop();
     });
 
-    it('gets executed', function() {
+    it('gets executed', function(done) {
         client.get('/', function(response, body) {
             expect(flag).to.be(true);
+            done();
         });
     });
 });
