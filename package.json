@@ -24,6 +24,6 @@
     },
     "license": "MIT",
     "scripts": {
-        "test": "PATH=./node_modules/.bin:$PATH istanbul cover _mocha --report lcovonly -- -R spec --recursive tests"
+        "test": "PATH=./node_modules/.bin:$PATH istanbul cover --root kolba _mocha --report lcovonly -- -R spec --recursive tests"
     }
 }
