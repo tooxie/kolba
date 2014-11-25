@@ -38,6 +38,8 @@ describe('Traversing the URL tree', function() {
         //
         // DECISION: They are all simply ignored.
         app.mount('/mod', module);
+        app.useMiddlewares(module);
+        app.useInterceptors(module);
 
         app.listen(3001);
 
